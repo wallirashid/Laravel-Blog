@@ -39,8 +39,19 @@ class AdminUserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        //
-        return $request->all();
+        
+        $user = new User;
+        $user->name      = $request->username;
+        $user->email     = $request->email;
+        $user->role_id   = $request->role_id;
+        $user->is_active = $request->is_active;
+        $user->password  = $request->password;
+        $user->photo_id  = $request->photo_id;
+        $user->save();
+        // return  $request->all();
+    
+
+        return redirect('admin/users');
     }
 
     /**

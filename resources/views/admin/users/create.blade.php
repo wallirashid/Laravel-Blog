@@ -24,8 +24,8 @@
          {{ Form::password('password',['class' => 'form-control','placeholder'=>'Enter Password']),'' }}
         </div>
          <div class="form-group">
-          {{ Form::label('image','Image') }}
-          {{ Form::file('image',['class'=>'form-control'])  }}
+          {{ Form::label('file','Image') }}
+          {{ Form::file('file',['class'=>'form-control'])  }}
         </div>
 
         <div class="form-group">
