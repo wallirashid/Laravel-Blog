@@ -1,11 +1,12 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use App\User;
 use App\Role;
-use App\Http\Requests\UserRequest;
+use App\Photo;
 class AdminUserController extends Controller
+
 {
     /**
      * Display a listing of the resource.
@@ -39,20 +40,34 @@ class AdminUserController extends Controller
      */
     public function store(UserRequest $request)
     {
+        $input = $request->all();
         
-        $user = new User;
-        $user->name      = $request->username;
-        $user->email     = $request->email;
-        $user->role_id   = $request->role_id;
-        $user->is_active = $request->is_active;
-        $user->password  = $request->password;
-        $user->photo_id  = $request->photo_id;
-        $user->save();
-        // return  $request->all();
-    
-
+        if($file = $request->file('file')){
+            $name = time().$file->getClientOriginalName();
+            $file->move('images',$name);
+            $photo = Photo::create(['name'=>$name]);
+            $input['photo_id'] = $photo->id;
+        }
+        User::create( $input );
         return redirect('admin/users');
-    }
+        // $user = new User;
+        // $user->name      = $request->username;
+        // $user->email     = $request->email;
+        // $user->role_id   = $request->role_id;
+        // $user->is_active = $request->is_active;
+        // $user->password  = $request->password;
+        // if($file = $request->file('file') ){
+        //     $name = $file->getClientOriginalName();
+        //     $file->move('images',$file);
+        //     $photo = Photo::create(['file'=>$name]);
+        //     $user->photo_id =  $photo->id;
+        //     $user->save();
+        //     return redirect('admin/users');
+        // }
+           
+           
+    }   
+
 
     /**
      * Display the specified resource.
@@ -75,6 +90,9 @@ class AdminUserController extends Controller
     public function edit($id)
     {
         //
+        $user = User::findOrFail($id);
+        $role = Role::pluck('name','id')->all();
+        return view('admin.users.edit',compact('user','role'));
     }
 
     /**
@@ -87,6 +105,7 @@ class AdminUserController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return "<h1>User update message</h1>";
     }
 
     /**

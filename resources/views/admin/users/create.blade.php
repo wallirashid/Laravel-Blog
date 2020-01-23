@@ -4,12 +4,12 @@
     <div class="jumbotraon">
       {{ Form::open(['method'=>'post','action'=>'AdminUserController@store','files' => true]) }}
       <div class="form-group">
-        {{ Form::label('uname','Username') }}
-        {{ Form::text('username','',['class'=>'form-control']) }}
+        {{ Form::label('name','Username') }}
+        {{ Form::text('name','',['class'=>'form-control','placeholder'=>'Enter username']) }}
        </div>
        <div class="form-group">
         {{ Form::label('email','Email')}}
-        {{ Form::email('email','',['class'=>'form-control']) }}
+        {{ Form::email('email','',['class'=>'form-control','placeholder'=>'Enter Email Adrress']) }}
         </div>
         <div class="form-group">
           {{ Form::label('role_id','Role') }}
