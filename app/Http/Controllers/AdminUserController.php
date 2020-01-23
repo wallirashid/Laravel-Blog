@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\User;
 use App\Role;
 use App\Photo;
@@ -102,10 +103,19 @@ class AdminUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
         //
-        return "<h1>User update message</h1>";
+        $user  = User::find($id);
+        if($file = $request->file('file')){
+            $name = time().$file->getClientOriginalName();
+            $file->move('images',$name);
+            $photo = Photo::find($id);
+            $user->photo_id = $photo->id;
+        }
+        $store = $request->all();
+        $user->update($store);
+        return redirect('admin/users');
     }
 
     /**

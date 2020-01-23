@@ -1,7 +1,11 @@
 @extends('layouts.admin')
 @section('content')
 @include('admin.includes.form_errors') 
-    <div class="jumbotraon">
+ <h2 class="text-center">Edit user</h2>
+  <div class="col-lg-3">
+    <img src="{{ $user->photo->name }}" height="200px" width="200px">
+  </div>
+    <div class="col-lg-9">
       {{ Form::model($user ,['method'=>'PATCH','action'=>['AdminUserController@update',$user->id],'files' => true]) }}
       <div class="form-group">
         {{ Form::label('name','Username') }}
@@ -17,11 +21,7 @@
         </div>
         <div class="form-group">
           {{ Form::label('is_active','Status') }}
-         {{ Form::select('is_active', [1 => 'Active',0 => 'Not Active'], 0 , ['class' => 'form-control']) }}
-        </div>
-        <div class="form-group">
-          {{ Form::label('password','Password') }}
-         {{ Form::password('password',['class' => 'form-control','placeholder'=>'Enter Password']),"testing"}}
+         {{ Form::select('is_active', [1 => 'Active',0 => 'Not Active'], null , ['class' => 'form-control']) }}
         </div>
          <div class="form-group">
           {{ Form::label('file','Image') }}
