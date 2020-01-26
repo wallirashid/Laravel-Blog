@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
+use Illuminate\Support\Facades\Session;
 use App\User;
 use App\Role;
 use App\Photo;
@@ -50,6 +51,9 @@ class AdminUserController extends Controller
             $input['photo_id'] = $photo->id;
         }
         User::create( $input );
+        Session::put('create_user','User has been created successfully');
+
+
         return redirect('admin/users');
         // $user = new User;
         // $user->name      = $request->username;
@@ -127,5 +131,9 @@ class AdminUserController extends Controller
     public function destroy($id)
     {
         //
+       $user = User::findOrFail($id);
+       $user->delete();
+       Session::flash('delete_user','User has been deleted successfully');
+       return redirect( 'admin/users' );
     }
 }

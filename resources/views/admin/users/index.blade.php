@@ -1,5 +1,14 @@
 @extends('layouts.admin')
 @section('content')
+ <h2>User Listing here</h2>
+
+    @if(Session::has('create_user'))
+        <div class="alert alert-success">{{Session::get('create_user')}}</div>
+    @endif
+
+    @if(Session::has('delete_user'))
+        <div class="alert alert-danger">{{session('delete_user')}}</div>
+    @endif
     <div class="users-table">
         <table class="table table-responsive table-bordered">
             <thead>
