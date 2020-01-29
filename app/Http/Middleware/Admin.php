@@ -21,7 +21,7 @@ class Admin
             }
 
        }
-       return redirect("/");
+       return redirect("/layouts/404");
 
     }
 }
