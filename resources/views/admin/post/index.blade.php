@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('content')
+@section('content') 
    <table class="table table-responsive table-bordered">
             <thead>
                 <tr>
