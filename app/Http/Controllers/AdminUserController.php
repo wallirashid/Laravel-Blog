@@ -50,6 +50,7 @@ class AdminUserController extends Controller
             $photo = Photo::create(['name'=>$name]);
             $input['photo_id'] = $photo->id;
         }
+        $input["password"] = bcrypt( $request->password );
         User::create( $input );
         Session::put('create_user','User has been created successfully');
 

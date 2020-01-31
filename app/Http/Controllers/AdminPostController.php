@@ -7,6 +7,7 @@ use App\Http\Requests\UserPostRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Post;
 use App\Photo;
+use App\Category;
 class AdminPostController extends Controller
 {
     /**
@@ -18,7 +19,8 @@ class AdminPostController extends Controller
     {
         //
         $posts = Post::all();
-        
+       
+       
         return view('admin.post.index',compact('posts'));
     }
 
@@ -30,7 +32,8 @@ class AdminPostController extends Controller
     public function create()
     {
         //
-      return view("admin.post.create");
+        $categories = Category::pluck('name','id')->all();
+        return view("admin.post.create",compact('categories') );
     }
 
     /**
@@ -42,7 +45,6 @@ class AdminPostController extends Controller
     public function store(UserPostRequest $request)
     {   
         $input =  $request->all();
-        return $input;
         if($file = $request->file('photo_id'))
         {
            $name = time().$file->getClientOriginalName();

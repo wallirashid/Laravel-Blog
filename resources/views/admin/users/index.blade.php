@@ -4,6 +4,7 @@
 
     @if(Session::has('create_user'))
         <div class="alert alert-success">{{Session::get('create_user')}}</div>
+        {{session()->forget('create_user')}}
     @endif
 
     @if(Session::has('delete_user'))
